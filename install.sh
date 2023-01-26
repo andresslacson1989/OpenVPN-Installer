@@ -719,7 +719,7 @@ install_done()
 {
 
   server_ip=$(curl -s https://api.ipify.org)
-  curl -sb -X POST https://bytesph.com/server/install -H "Content-Type: application/x-www-form-urlencoded" -d "status=done&ip=$server_ip"
+  curl -sb -X POST https://bytesph.com/api/server/install -H "Content-Type: application/x-www-form-urlencoded" -d "status=done&ip=$server_ip"
   clear
   echo "###################################"
   echo "######### BytesPH Server ##########"
