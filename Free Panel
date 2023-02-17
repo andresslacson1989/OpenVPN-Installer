@@ -1,0 +1,42 @@
+#!/bin/bash
+### BytesPH OpenVPN Server Connection Script ###
+
+mkdir -p /etc/openvpn/login
+
+/bin/cat <<"EOM" >/etc/openvpn/login/auth_vpn
+#!/bin/bash
+##Authentication
+data=$(curl -sb -X POST https://bytesph.com/api/my-panel/server/login -H "Content-Type: application/x-www-form-urlencoded" -d "login=true&username=$username&password=$password")
+
+if [[ $data == "ACCEPT" ]];
+then
+	echo $data
+	echo "$username | $password is valid"
+	exit 0
+else
+	echo $data
+	echo "$username | $password is invalid"
+	exit 1
+fi
+
+EOM
+
+#client-connect file
+cat <<'BYTES1' >/etc/openvpn/login/connect.sh
+#!/bin/bash
+
+##set status online to user connected
+data=$(curl -sb -X POST https://bytesph.com/api/my-panel/server/update-status -H "Content-Type: application/x-www-form-urlencoded" -d "status=1&username=$common_name")
+
+BYTES1
+
+#TCP client-disconnect file
+cat <<'BYTES2' >/etc/openvpn/login/disconnect.sh
+#!/bin/bash
+
+data=$(curl -sb -X POST https://bytesph.com/api/my-panel/server/update-status -H "Content-Type: application/x-www-form-urlencoded" -d "status=0&username=$common_name")
+BYTES2
+
+cd /etc/opevnpn/login
+chmod +x auth_vpn connect.sh disconnect.sh
+
