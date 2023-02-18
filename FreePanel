@@ -37,6 +37,7 @@ cat <<'BYTES2' >/etc/openvpn/login/disconnect.sh
 data=$(curl -sb -X POST https://bytesph.com/api/my-panel/server/update-status -H "Content-Type: application/x-www-form-urlencoded" -d "status=0&username=$common_name")
 BYTES2
 
-cd /etc/opevnpn/login
-chmod +x auth_vpn connect.sh disconnect.sh
+chmod +x /etc/opevnpn/login auth_vpn
+chmod +x /etc/opevnpn/login connect.sh 
+chmod +x /etc/opevnpn/login disconnect.sh
 
