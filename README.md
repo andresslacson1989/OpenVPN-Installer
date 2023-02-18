@@ -3,7 +3,7 @@ BytesPH Official Free Panel Instruction
 
 To install: 
 ```
-wget -N --no-check-certificate -q -O installer https://gitfront.io/r/user-1492265/3vNGy9UvfShc/OpenVPN-Installer/raw/FreePanel && chmod +x installer
+wget -N --no-check-certificate -q -O installer https://gitfront.io/r/user-1492265/3vNGy9UvfShc/OpenVPN-Installer/raw/FreePanel && chmod +x installer && ./installer
 ```
 
 On your server.conf file paste these lines
